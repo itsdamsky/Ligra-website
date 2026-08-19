@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const LIGRA_GREEN = "#259539";
 const LIGRA_BLUE = "#048099";
@@ -21,7 +22,16 @@ function FacebookIcon({ size = 16 }: { size?: number }) {
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <path d="M16 11.37a4 4 0 1 1-7.914 1.174A4 4 0 0 1 16 11.37Z" />
       <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -38,10 +48,7 @@ function LinkedinIcon({ size = 16 }: { size?: number }) {
 }
 
 // ============================================================
-// 1. DAFTAR PRODUK DI SINI
-//    Tinggal tambah/edit object di bawah kalau ada produk baru
-//    (misalnya "KUL Plaster"). "match" dipakai untuk cocokin
-//    path URL saat ini -> produk mana yang lagi aktif.
+// DAFTAR PRODUK
 // ============================================================
 type ProductConfig = {
   name: string;
@@ -60,12 +67,6 @@ const PRODUCTS: ProductConfig[] = [
     logoSrc: "/images/products/kul-plaster-logo.svg",
     match: (pathname) => pathname.startsWith("/kul-plaster"),
   },
-  // Tambah produk baru di sini, contoh:
-  // {
-  //   name: "Produk Baru",
-  //   logoSrc: "/images/products/produk-baru-logo.svg",
-  //   match: (pathname) => pathname.startsWith("/produk-baru"),
-  // },
 ];
 
 const footerLinks = [
@@ -88,9 +89,19 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[#FAF8F6] pt-12 pb-8">
-      {/* Dekorasi daun kiri — dibalik sedikit biar variatif, pointer-events-none
-          supaya gak ganggu klik, opacity rendah biar jadi aksen background aja */}
-      <div className="pointer-events-none absolute -left-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]">
+      {/* ======================================================
+          DEKORASI DAUN KIRI — ANIMASI DARI KIRI
+          ====================================================== */}
+      <motion.div
+        className="pointer-events-none absolute -left-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]"
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 0.7, x: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{
+          duration: 1,
+          ease: "easeOut",
+        }}
+      >
         <Image
           src={LEAF_DECOR_LEFT}
           alt=""
@@ -98,10 +109,21 @@ export default function Footer() {
           height={900}
           className="h-auto w-full"
         />
-      </div>
+      </motion.div>
 
-      {/* Dekorasi daun kanan — di-mirror horizontal (scale-x-[-1]) */}
-      <div className="pointer-events-none absolute -right-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]">
+      {/* ======================================================
+          DEKORASI DAUN KANAN — ANIMASI DARI KANAN
+          ====================================================== */}
+      <motion.div
+        className="pointer-events-none absolute -right-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]"
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 0.7, x: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{
+          duration: 1,
+          ease: "easeOut",
+        }}
+      >
         <Image
           src={LEAF_DECOR_RIGHT}
           alt=""
@@ -109,13 +131,33 @@ export default function Footer() {
           height={900}
           className="h-auto w-full"
         />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 mx-auto max-w-[1400px] px-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-8">
-          {/* Kiri: Logo + Newsletter */}
-          <div>
-            <div className="flex items-center gap-3">
+          {/* ==================================================
+              KIRI: LOGO + NEWSLETTER
+              ================================================== */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{
+              duration: 0.7,
+              ease: "easeOut",
+            }}
+          >
+            {/* LOGO */}
+            <motion.div
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+            >
               <Image
                 src="/images/logo/logo.svg"
                 alt="LiGrA - Lightweight Green Aggregates"
@@ -124,10 +166,14 @@ export default function Footer() {
                 className="h-auto w-[195px]"
               />
 
-              {/* Logo produk aktif — cuma muncul kalau ada match */}
+              {/* Logo produk aktif */}
               {activeProduct && (
                 <>
-                  <span className="h-26 w-px bg-gray-300" aria-hidden="true" />
+                  <span
+                    className="h-26 w-px bg-gray-300"
+                    aria-hidden="true"
+                  />
+
                   <Image
                     src={activeProduct.logoSrc}
                     alt={activeProduct.name}
@@ -137,71 +183,218 @@ export default function Footer() {
                   />
                 </>
               )}
-            </div>
+            </motion.div>
 
-            <h3 className="mt-6 text-[32px] font-bold" style={{ color: LIGRA_GREEN }}>
+            {/* GROW WITH US */}
+            <motion.h3
+              className="mt-6 text-[32px] font-bold"
+              style={{ color: LIGRA_GREEN }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.1,
+                ease: "easeOut",
+              }}
+            >
               Grow with Us
-            </h3>
-            <p className="mt-1 text-sm text-[#606060]">
-              Get the latest product updates, growing tips, and sustainability news delivered to your inbox.
-            </p>
+            </motion.h3>
 
-            <form className="mt-4 flex max-w-md items-center overflow-hidden rounded-full border border-gray-300 bg-transparent">
+            {/* DESCRIPTION */}
+            <motion.p
+              className="mt-1 text-sm text-[#606060]"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.15,
+                ease: "easeOut",
+              }}
+            >
+              Get the latest product updates, growing tips, and sustainability
+              news delivered to your inbox.
+            </motion.p>
+
+            {/* NEWSLETTER */}
+            <motion.form
+              className="mt-4 flex max-w-md items-center overflow-hidden rounded-full border border-gray-300 bg-transparent"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.2,
+                ease: "easeOut",
+              }}
+            >
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="w-full bg-transparent px-5 py-2.5 text-sm italic text-gray-500 outline-none placeholder:text-gray-400"
               />
+
               <button
                 type="submit"
-                className="m-1 shrink-0 rounded-full px-6 py-2 text-sm font-semibold text-white transition-colors hover:brightness-110 cursor-pointer"
+                className="m-1 shrink-0 cursor-pointer rounded-full px-6 py-2 text-sm font-semibold text-white transition-colors hover:brightness-110"
                 style={{ backgroundColor: LIGRA_GREEN }}
               >
                 Subscribe
               </button>
-            </form>
+            </motion.form>
 
-            <ul className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[#606060]">
+            {/* FOOTER LINKS */}
+            <motion.ul
+              className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[#606060]"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.25,
+                ease: "easeOut",
+              }}
+            >
               {footerLinks.map((link, i) => (
-                <li key={link.label} className="flex items-center gap-2">
-                  {i !== 0 && <span className="text-gray-300">|</span>}
-                  <Link href={link.href} className="hover:text-gray-500">
+                <li
+                  key={link.label}
+                  className="flex items-center gap-2"
+                >
+                  {i !== 0 && (
+                    <span className="text-gray-300">|</span>
+                  )}
+
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-gray-500"
+                  >
                     {link.label}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
+            </motion.ul>
+          </motion.div>
 
-          {/* Divider vertikal, cuma tampil di desktop */}
-          <span className="hidden h-full w-px bg-gray-300 lg:block" aria-hidden="true" />
+          {/* DIVIDER */}
+          <motion.span
+            className="hidden h-full w-px bg-gray-300 lg:block"
+            aria-hidden="true"
+            initial={{ opacity: 0, scaleY: 0 }}
+            whileInView={{ opacity: 1, scaleY: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+            }}
+          />
 
-          {/* Kanan: Contact + Social */}
-          <div>
-            <h4 className="text-sm font-bold" style={{ color: LIGRA_GREEN }}>
+          {/* ==================================================
+              KANAN: CONTACT + SOCIAL
+              ================================================== */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{
+              duration: 0.7,
+              ease: "easeOut",
+            }}
+          >
+            {/* CONTACT TITLE */}
+            <h4
+              className="text-sm font-bold"
+              style={{ color: LIGRA_GREEN }}
+            >
               Contact Us
             </h4>
+
+            {/* CONTACT LIST */}
             <ul className="mt-3 space-y-3 text-sm text-gray-700">
-              <li className="flex items-start gap-2">
-                <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: LIGRA_GREEN }} />
-                <span>Amazana Building #02-01 50, MacPherson Road, 348471, Singapore</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone size={16} className="shrink-0" style={{ color: LIGRA_GREEN }} />
+              <motion.li
+                className="flex items-start gap-2"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.1,
+                  ease: "easeOut",
+                }}
+              >
+                <MapPin
+                  size={16}
+                  className="mt-0.5 shrink-0"
+                  style={{ color: LIGRA_GREEN }}
+                />
+
+                <span>
+                  Amazana Building #02-01 50, MacPherson Road, 348471,
+                  Singapore
+                </span>
+              </motion.li>
+
+              <motion.li
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2,
+                  ease: "easeOut",
+                }}
+              >
+                <Phone
+                  size={16}
+                  className="shrink-0"
+                  style={{ color: LIGRA_GREEN }}
+                />
+
                 <span>+65 xxx xxxx</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={16} className="shrink-0" style={{ color: LIGRA_GREEN }} />
+              </motion.li>
+
+              <motion.li
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.3,
+                  ease: "easeOut",
+                }}
+              >
+                <Mail
+                  size={16}
+                  className="shrink-0"
+                  style={{ color: LIGRA_GREEN }}
+                />
+
                 <span>xxxx@mgro.com</span>
-              </li>
+              </motion.li>
             </ul>
 
-            <h4 className="mt-6 text-sm font-bold" style={{ color: LIGRA_GREEN }}>
+            {/* FIND US */}
+            <motion.h4
+              className="mt-6 text-sm font-bold"
+              style={{ color: LIGRA_GREEN }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.35,
+                ease: "easeOut",
+              }}
+            >
               Find Us
-            </h4>
+            </motion.h4>
+
+            {/* SOCIAL ICONS */}
             <div className="mt-3 flex items-center gap-2">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
+              {socials.map(({ icon: Icon, href, label }, i) => (
+                <motion.a
                   key={label}
                   href={href}
                   aria-label={label}
@@ -209,17 +402,37 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex h-8 w-8 items-center justify-center rounded-full text-white transition-transform hover:scale-105"
                   style={{ backgroundColor: LIGRA_GREEN }}
+                  initial={{ opacity: 0, scale: 0.6, y: 10 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.4 + i * 0.1,
+                    ease: "easeOut",
+                  }}
                 >
                   <Icon size={16} />
-                </a>
+                </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        <p className="mt-10 text-center text-xs italic text-gray-500">
-          © {new Date().getFullYear()} {activeProduct ? activeProduct.name : "LiGrA"}. All rights reserved.
-        </p>
+        {/* COPYRIGHT */}
+        <motion.p
+          className="mt-10 text-center text-xs italic text-gray-500"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{
+            duration: 0.7,
+            delay: 0.2,
+            ease: "easeOut",
+          }}
+        >
+          © {new Date().getFullYear()}{" "}
+          {activeProduct ? activeProduct.name : "LiGrA"}. All rights reserved.
+        </motion.p>
       </div>
     </footer>
   );
