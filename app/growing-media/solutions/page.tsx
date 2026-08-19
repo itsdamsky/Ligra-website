@@ -8,26 +8,46 @@ const GREEN = "#88B532";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/* =========================================================
+   SMOOTH LIGHTWEIGHT ANIMATIONS
+   ========================================================= */
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+  hidden: {
+    opacity: 0,
+    y: 28,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: EASE,
+    },
+  },
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.94, y: 20 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
-};
-
-const staggerContainer = {
+const textContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.04,
+    },
+  },
 };
 
-const viewportOnce = { once: true, amount: 0.3 as const };
+const viewportOnce = {
+  once: true,
+  amount: 0.2 as const,
+};
 
-/* --------------------------------------------------------- */
+/* ========================================================= */
 
-type Benefit = { iconSrc: string; label: string };
+type Benefit = {
+  iconSrc: string;
+  label: string;
+};
 
 type Product = {
   eyebrow: string;
@@ -52,13 +72,26 @@ const products: Product[] = [
     image: "/images/mgro/hydroponic-photo.webp",
     bagImage: "/images/mgro/bag-hydroponic.webp",
     benefits: [
-      { iconSrc: "/images/mgro/icon/icon-highly-porous.svg", label: "Highly\nPorous" },
-      { iconSrc: "/images/mgro/icon/icont-retains-water.svg", label: "Retains Water,\nNutrients & Microbes" },
-      { iconSrc: "/images/mgro/icon/icon-excellent.svg", label: "Excellent\nDrainage" },
-      { iconSrc: "/images/mgro/icon/icon-healty-growth.svg", label: "Healthy\nRoot Growth" },
+      {
+        iconSrc: "/images/mgro/icon/icon-highly-porous.svg",
+        label: "Highly\nPorous",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icont-retains-water.svg",
+        label: "Retains Water,\nNutrients & Microbes",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-excellent.svg",
+        label: "Excellent\nDrainage",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-healty-growth.svg",
+        label: "Healthy\nRoot Growth",
+      },
     ],
     imageOnLeft: false,
   },
+
   {
     eyebrow: "SOIL AERATOR",
     title: "Improve Soil from the Ground Up",
@@ -69,14 +102,27 @@ const products: Product[] = [
     image: "/images/mgro/soil-aerator-photo.webp",
     bagImage: "/images/mgro/bag-soil-aerator.webp",
     benefits: [
-      { iconSrc: "/images/mgro/icon/Icon-improves-darkgreen.svg", label: "Improves Water\nBalance" },
-      { iconSrc: "/images/mgro/icon/icon-airflow-darkgreen.svg", label: "Increases Air Flow\n& Drainage" },
-      { iconSrc: "/images/mgro/icon/icon-lightweight-darkgreen.svg", label: "Lightweight\n& Rich in Silica" },
-      { iconSrc: "/images/mgro/icon/icon-prevent-rot.svg", label: "Prevents\nRoot Rot" },
+      {
+        iconSrc: "/images/mgro/icon/Icon-improves-darkgreen.svg",
+        label: "Improves Water\nBalance",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-airflow-darkgreen.svg",
+        label: "Increases Air Flow\n& Drainage",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-lightweight-darkgreen.svg",
+        label: "Lightweight\n& Rich in Silica",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-prevent-rot.svg",
+        label: "Prevents\nRoot Rot",
+      },
     ],
     imageOnLeft: true,
     bgTint: "#FAFFF0",
   },
+
   {
     eyebrow: "SOILLESS MEDIUM",
     title: "Build a Better Growing Mix",
@@ -87,13 +133,26 @@ const products: Product[] = [
     image: "/images/mgro/soilless-photo.webp",
     bagImage: "/images/mgro/bag-soilless.webp",
     benefits: [
-      { iconSrc: "/images/mgro/icon/Icon-improves-darkgreen.svg", label: "Improves Water\nBalance" },
-      { iconSrc: "/images/mgro/icon/icon-airflow-darkgreen.svg", label: "Increases Air Flow\n& Drainage" },
-      { iconSrc: "/images/mgro/icon/icon-lightweight-darkgreen.svg", label: "Lightweight\n& Rich in Silica" },
-      { iconSrc: "/images/mgro/icon/icon-prevent-rot.svg", label: "Prevents\nRoot Rot" },
+      {
+        iconSrc: "/images/mgro/icon/Icon-improves-darkgreen.svg",
+        label: "Improves Water\nBalance",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-airflow-darkgreen.svg",
+        label: "Increases Air Flow\n& Drainage",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-lightweight-darkgreen.svg",
+        label: "Lightweight\n& Rich in Silica",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-prevent-rot.svg",
+        label: "Prevents\nRoot Rot",
+      },
     ],
     imageOnLeft: false,
   },
+
   {
     eyebrow: "TOP DRESSING",
     title: "Mosquito Control",
@@ -104,10 +163,22 @@ const products: Product[] = [
     image: "/images/mgro/top-dressing-photo.webp",
     bagImage: "/images/mgro/bag-top-dressing.webp",
     benefits: [
-      { iconSrc: "/images/mgro/icon/icon-chemical-free.svg", label: "Chemical\nFree" },
-      { iconSrc: "/images/mgro/icon/icon-water-pooling.svg", label: "Prevents Water\nPooling" },
-      { iconSrc: "/images/mgro/icon/icon-healthy-darkgreen.svg", label: "Supports\nRoot Growth" },
-      { iconSrc: "/images/mgro/icon/icon-airflow-full.svg", label: "Improves Drainage\n& Air Flow" },
+      {
+        iconSrc: "/images/mgro/icon/icon-chemical-free.svg",
+        label: "Chemical\nFree",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-water-pooling.svg",
+        label: "Prevents Water\nPooling",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-healthy-darkgreen.svg",
+        label: "Supports\nRoot Growth",
+      },
+      {
+        iconSrc: "/images/mgro/icon/icon-airflow-full.svg",
+        label: "Improves Drainage\n& Air Flow",
+      },
     ],
     imageOnLeft: true,
     bgTint: "#FAFFF0",
@@ -115,12 +186,14 @@ const products: Product[] = [
   },
 ];
 
-/* --------------------------------------------------------- */
+/* ========================================================= */
 
 export default function GrowingSolutionsPage() {
   return (
     <>
-      {/* HERO BANNER */}
+      {/* =====================================================
+          HERO BANNER
+          ===================================================== */}
       <section className="relative w-full overflow-hidden">
         <Image
           src="/images/mgro/growsolutions.webp"
@@ -130,10 +203,15 @@ export default function GrowingSolutionsPage() {
           priority
           className="h-[220px] w-full object-cover object-[65%_center] sm:h-[280px] lg:h-[340px]"
         />
+
+        {/* HERO TEXT */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
+          transition={{
+            duration: 0.7,
+            ease: EASE,
+          }}
           className="absolute inset-0 flex flex-col items-start justify-center pl-[10%] pr-6 pt-16 sm:pl-[16%] sm:pt-14 lg:pl-[16%] lg:pt-18"
         >
           <div className="relative">
@@ -145,6 +223,7 @@ export default function GrowingSolutionsPage() {
               className="h-auto w-24 sm:w-38 lg:w-46"
             />
           </div>
+
           <p
             className="whitespace-nowrap text-[14px] font-semibold leading-snug sm:text-[18px] lg:text-[30px]"
             style={{ color: DARK_GREEN }}
@@ -156,7 +235,10 @@ export default function GrowingSolutionsPage() {
         </motion.div>
       </section>
 
-      {/* PRODUCT SECTIONS */}
+      {/* =====================================================
+          PRODUCT SECTIONS
+          ===================================================== */}
+
       {products.map((product, i) => {
         const bagOnLeft = i % 2 === 0;
 
@@ -166,8 +248,10 @@ export default function GrowingSolutionsPage() {
             className="w-full overflow-x-hidden pb-24 pt-14 sm:pb-32 sm:pt-20"
             style={{
               backgroundColor: product.bgTint ?? "#FFFFFF",
-              paddingLeft: "max(24px, calc((100vw - 1400px) / 2 + 24px))",
-              paddingRight: "max(24px, calc((100vw - 1400px) / 2 + 24px))",
+              paddingLeft:
+                "max(24px, calc((100vw - 1400px) / 2 + 24px))",
+              paddingRight:
+                "max(24px, calc((100vw - 1400px) / 2 + 24px))",
             }}
           >
             <div
@@ -177,24 +261,61 @@ export default function GrowingSolutionsPage() {
                   : "lg:grid-cols-[1.05fr_1fr]"
               }`}
             >
-              {/* Image side */}
+              {/* =================================================
+                  IMAGE SIDE
+                  FOTO + BAG DIANIMASIKAN RINGAN
+                  ================================================= */}
+
               <motion.div
-                initial="hidden"
-                whileInView="visible"
+                initial={{
+                  opacity: 0,
+                  x: product.imageOnLeft ? -20 : 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
                 viewport={viewportOnce}
-                variants={scaleIn}
-                className={`relative ${product.imageOnLeft ? "lg:order-1" : "lg:order-2"}`}
+                transition={{
+                  duration: 0.7,
+                  ease: EASE,
+                }}
+                className={`relative ${
+                  product.imageOnLeft
+                    ? "lg:order-1"
+                    : "lg:order-2"
+                }`}
               >
+                {/* MAIN IMAGE */}
+
                 <div className="relative overflow-hidden rounded-2xl">
                   <Image
                     src={product.image}
                     alt={`${product.eyebrow} ${product.title}`}
                     width={700}
                     height={480}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="h-auto w-full"
                   />
                 </div>
-                <div
+
+                {/* BAG IMAGE */}
+
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 12,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={viewportOnce}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.12,
+                    ease: EASE,
+                  }}
                   className={`pointer-events-none absolute -bottom-6 w-[110px] drop-shadow-2xl sm:w-[140px] lg:w-[200px] ${
                     bagOnLeft
                       ? "left-0 -translate-x-1/2"
@@ -206,33 +327,53 @@ export default function GrowingSolutionsPage() {
                     alt={`mGRO ${product.title} packaging`}
                     width={400}
                     height={560}
+                    sizes="(max-width: 1024px) 140px, 200px"
                     className="h-auto w-full"
                   />
-                </div>
+                </motion.div>
               </motion.div>
 
-              {/* Text side */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    variants={staggerContainer}
-                    className={`${product.imageOnLeft ? "lg:order-2 lg:pl-20" : "lg:order-1"}`}
-                >
+              {/* =================================================
+                  TEXT SIDE
+                  MUNCUL SATU PER SATU
+                  ================================================= */}
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={textContainer}
+                className={`${
+                  product.imageOnLeft
+                    ? "lg:order-2 lg:pl-20"
+                    : "lg:order-1"
+                }`}
+              >
+                {/* EYEBROW */}
+
                 <motion.p
                   variants={fadeUp}
                   className="text-[26px] font-bold italic uppercase leading-none tracking-wide sm:text-[36px] lg:text-[42px]"
-                  style={{ color: DARK_GREEN }}
+                  style={{
+                    color: DARK_GREEN,
+                  }}
                 >
                   {product.eyebrow}
                 </motion.p>
+
+                {/* TITLE */}
+
                 <motion.h2
                   variants={fadeUp}
                   className="mt-1 text-[20px] font-bold italic leading-tight sm:text-[26px] lg:text-[30px]"
-                  style={{ color: GREEN }}
+                  style={{
+                    color: GREEN,
+                  }}
                 >
                   {product.title}
                 </motion.h2>
+
+                {/* DESCRIPTION */}
 
                 <motion.p
                   variants={fadeUp}
@@ -241,7 +382,12 @@ export default function GrowingSolutionsPage() {
                   {product.description.join(" ")}
                 </motion.p>
 
-                <motion.div variants={fadeUp} className="mt-8 flex items-start gap-x-8 sm:gap-x-10">
+                {/* BENEFITS */}
+
+                <motion.div
+                  variants={fadeUp}
+                  className="mt-8 flex items-start gap-x-8 sm:gap-x-10"
+                >
                   {product.benefits.map((b) => (
                     <div
                       key={b.label}
@@ -254,12 +400,15 @@ export default function GrowingSolutionsPage() {
                         height={64}
                         className="h-12 w-auto sm:h-14 lg:h-16"
                       />
+
                       <p className="whitespace-pre-line text-[11px] font-regular uppercase leading-snug text-[#3d3d3d] sm:text-[13px] lg:text-[10px]">
                         {b.label}
                       </p>
                     </div>
                   ))}
                 </motion.div>
+
+                {/* MOSQUITO NOTE */}
 
                 {product.mosquitoNote && (
                   <motion.div
@@ -273,12 +422,14 @@ export default function GrowingSolutionsPage() {
                       height={56}
                       className="h-14 w-14 shrink-0"
                     />
+
                     <div>
                       <p className="text-[15px] font-bold uppercase leading-tight text-red-600">
                         Prevent Mosquito
                         <br />
                         Breeding
                       </p>
+
                       <p className="mt-1 text-[13px] leading-relaxed text-[#3d3d3d]">
                         Stop mosquitoes from laying eggs
                       </p>
