@@ -1,11 +1,11 @@
-import HeroBanner from '@/components/HeroBanner';
-import ComparisonSection from '@/components/ComparisonSection';
-import GrowWithMgroSection from '@/components/GrowWithMgro';
-import MgroVsPerliteSection from '@/components/MgroVsPerliteSection';
-import GrowHighersection from '@/components/GrowHigherSection';
-import PottedPlantsCertifiedSection from '@/components/PottedPlantsCertifiedSection';
-import QuoteBannerSection from '@/components/QuoteBannerSection';
-import Reveal from '@/components/Reveal';
+import HeroBanner from '@/components/product/mgro/HeroBanner';
+import ComparisonSection from '@/components/product/mgro/ComparisonSection';
+import GrowWithMgroSection from '@/components/product/mgro/GrowWithMgro';
+import MgroVsPerliteSection from '@/components/product/mgro/MgroVsPerliteSection';
+import GrowHighersection from '@/components/product/mgro/GrowHigherSection';
+import PottedPlantsCertifiedSection from '@/components/product/mgro/PottedPlantsCertifiedSection';
+import QuoteBannerSection from '@/components/product/mgro/QuoteBannerSection';
+import Reveal from '@/components/product/mgro/Reveal';
 
 export default function GrowingMediaPage() {
   return (

@@ -1,8 +1,8 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/shared/Navbar";
 import "./globals.css";
 import { Caveat } from 'next/font/google';
 import { Inter } from "next/font/google";
-import Footer from "@/components/Footer";
+import Footer from "@/components/shared/Footer";
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['600', '700'], variable: '--font-caveat' });
 
