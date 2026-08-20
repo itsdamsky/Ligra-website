@@ -45,7 +45,7 @@ export default function HeroSection() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link
-                href="/technology"
+                href="/growing-media/proven-performance"
                 className="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-4 text-base font-bold text-white transition-all duration-200 hover:shadow-lg hover:gap-3"
                 style={{ backgroundColor: TEAL }}
               >
@@ -53,7 +53,7 @@ export default function HeroSection() {
                 <ArrowRight size={18} />
               </Link>
               <Link
-                href="/products"
+                href="/growing-media"
                 className="inline-flex items-center justify-center gap-2 rounded-lg border-2 px-7 py-4 text-base font-bold transition-all duration-200 hover:gap-3"
                 style={{ borderColor: TEAL, color: TEAL }}
               >

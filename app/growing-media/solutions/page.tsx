@@ -201,7 +201,7 @@ export default function GrowingSolutionsPage() {
           width={2200}
           height={620}
           priority
-          className="h-[220px] w-full object-cover object-[65%_center] sm:h-[280px] lg:h-[340px]"
+          className="h-[220px] w-full object-cover object-[65%_center] sm:h-[280px] min-[768px]:max-[1199px]:h-[300px] min-[1200px]:h-[340px]"
         />
 
         {/* HERO TEXT */}
@@ -212,7 +212,7 @@ export default function GrowingSolutionsPage() {
             duration: 0.7,
             ease: EASE,
           }}
-          className="absolute inset-0 flex flex-col items-start justify-center pl-[10%] pr-6 pt-16 sm:pl-[16%] sm:pt-14 lg:pl-[16%] lg:pt-18"
+          className="absolute inset-0 flex flex-col items-start justify-center pl-[10%] pr-6 pt-16 sm:pl-[16%] sm:pt-14 min-[768px]:max-[1199px]:pl-[12%] min-[768px]:max-[1199px]:pt-12 min-[1200px]:pl-[16%] min-[1200px]:pt-18"
         >
           <div className="relative">
             <Image
@@ -220,12 +220,12 @@ export default function GrowingSolutionsPage() {
               alt="mGRO"
               width={140}
               height={40}
-              className="h-auto w-24 sm:w-38 lg:w-46"
+              className="h-auto w-24 sm:w-38 min-[768px]:max-[1199px]:w-32 min-[1200px]:w-46"
             />
           </div>
 
           <p
-            className="whitespace-nowrap text-[14px] font-semibold leading-snug sm:text-[18px] lg:text-[30px]"
+            className="whitespace-nowrap text-[14px] font-semibold leading-snug sm:text-[18px] min-[768px]:max-[1199px]:text-[24px] min-[1200px]:text-[30px]"
             style={{ color: DARK_GREEN }}
           >
             Discover the right growing solution
@@ -245,27 +245,30 @@ export default function GrowingSolutionsPage() {
         return (
           <section
             key={product.title}
-            className="w-full overflow-x-hidden pb-24 pt-14 sm:pb-32 sm:pt-20"
+            className="relative w-full overflow-hidden pb-20 pt-12 sm:pb-28 sm:pt-16 min-[768px]:max-[1023px]:pb-8 min-[768px]:max-[1023px]:pt-16 min-[1024px]:max-[1199px]:pb-24 min-[1024px]:max-[1199px]:pt-16 min-[1200px]:pb-32 min-[1200px]:pt-20"
             style={{
               backgroundColor: product.bgTint ?? "#FFFFFF",
-              paddingLeft:
-                "max(24px, calc((100vw - 1400px) / 2 + 24px))",
-              paddingRight:
-                "max(24px, calc((100vw - 1400px) / 2 + 24px))",
             }}
           >
+            {/* =====================================================
+                MOBILE + DESKTOP BASE
+                Mobile (<768px) keeps the current mobile composition.
+                Desktop (>=1200px) keeps the current desktop composition.
+                Tablet 768–1199px uses the dedicated layout below.
+                ===================================================== */}
             <div
-              className={`grid gap-10 lg:items-center ${
-                product.imageOnLeft
-                  ? "lg:grid-cols-[1fr_1.05fr]"
-                  : "lg:grid-cols-[1.05fr_1fr]"
-              }`}
+              className={`
+                mx-auto flex max-w-[1400px] flex-col gap-8 px-4 sm:px-6
+                min-[768px]:max-[1199px]:hidden
+                min-[1200px]:grid min-[1200px]:gap-10 min-[1200px]:px-8
+                ${
+                  product.imageOnLeft
+                    ? "min-[1200px]:grid-cols-[1fr_1.05fr]"
+                    : "min-[1200px]:grid-cols-[1.05fr_1fr]"
+                }
+              `}
             >
-              {/* =================================================
-                  IMAGE SIDE
-                  FOTO + BAG DIANIMASIKAN RINGAN
-                  ================================================= */}
-
+              {/* IMAGE SIDE */}
               <motion.div
                 initial={{
                   opacity: 0,
@@ -280,64 +283,67 @@ export default function GrowingSolutionsPage() {
                   duration: 0.7,
                   ease: EASE,
                 }}
-                className={`relative ${
+                className={`relative self-start ${
                   product.imageOnLeft
-                    ? "lg:order-1"
-                    : "lg:order-2"
+                    ? "order-1 min-[1200px]:order-1"
+                    : "order-1 min-[1200px]:order-2"
                 }`}
               >
-                {/* MAIN IMAGE */}
+                <div className="relative overflow-visible">
+                  <div className="relative overflow-hidden rounded-2xl">
+                    <Image
+                      src={product.image}
+                      alt={`${product.eyebrow} ${product.title}`}
+                      width={700}
+                      height={480}
+                      sizes="(max-width: 767px) 100vw, 50vw"
+                      className="h-auto w-full object-cover"
+                    />
+                  </div>
 
-                <div className="relative overflow-hidden rounded-2xl">
-                  <Image
-                    src={product.image}
-                    alt={`${product.eyebrow} ${product.title}`}
-                    width={700}
-                    height={480}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="h-auto w-full"
-                  />
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: 12,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={viewportOnce}
+                    transition={{
+                      duration: 0.55,
+                      delay: 0.12,
+                      ease: EASE,
+                    }}
+                    className={`
+                      pointer-events-none absolute z-20
+                      -bottom-5 w-[clamp(96px,18vw,200px)] drop-shadow-2xl
+                      ${
+                        bagOnLeft
+                          ? "left-2"
+                          : "right-2"
+                      }
+                      min-[1200px]:${
+                        bagOnLeft
+                          ? "left-0 -translate-x-1/2"
+                          : "right-0 translate-x-1/2"
+                      }
+                    `}
+                  >
+                    <Image
+                      src={product.bagImage}
+                      alt={`mGRO ${product.title} packaging`}
+                      width={400}
+                      height={560}
+                      sizes="(max-width: 767px) 140px, 200px"
+                      className="h-auto w-full"
+                    />
+                  </motion.div>
                 </div>
-
-                {/* BAG IMAGE */}
-
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 12,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={viewportOnce}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.12,
-                    ease: EASE,
-                  }}
-                  className={`pointer-events-none absolute -bottom-6 w-[110px] drop-shadow-2xl sm:w-[140px] lg:w-[200px] ${
-                    bagOnLeft
-                      ? "left-0 -translate-x-1/2"
-                      : "right-0 translate-x-1/2"
-                  }`}
-                >
-                  <Image
-                    src={product.bagImage}
-                    alt={`mGRO ${product.title} packaging`}
-                    width={400}
-                    height={560}
-                    sizes="(max-width: 1024px) 140px, 200px"
-                    className="h-auto w-full"
-                  />
-                </motion.div>
               </motion.div>
 
-              {/* =================================================
-                  TEXT SIDE
-                  MUNCUL SATU PER SATU
-                  ================================================= */}
-
+              {/* TEXT SIDE */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -345,82 +351,218 @@ export default function GrowingSolutionsPage() {
                 variants={textContainer}
                 className={`${
                   product.imageOnLeft
-                    ? "lg:order-2 lg:pl-20"
-                    : "lg:order-1"
+                    ? "order-2 min-[1200px]:order-2 min-[1200px]:pl-20"
+                    : "order-2 min-[1200px]:order-1"
                 }`}
               >
-                {/* EYEBROW */}
+                <div className="w-full">
+                  <motion.p
+                    variants={fadeUp}
+                    className="text-[26px] font-bold italic uppercase leading-none tracking-wide sm:text-[36px] min-[1200px]:text-[42px]"
+                    style={{ color: DARK_GREEN }}
+                  >
+                    {product.eyebrow}
+                  </motion.p>
 
+                  <motion.h2
+                    variants={fadeUp}
+                    className="mt-1 text-[20px] font-bold italic leading-tight sm:text-[26px] min-[1200px]:text-[30px]"
+                    style={{ color: GREEN }}
+                  >
+                    {product.title}
+                  </motion.h2>
+
+                  <motion.p
+                    variants={fadeUp}
+                    className="mt-4 max-w-[640px] text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+                  >
+                    {product.description.join(" ")}
+                  </motion.p>
+
+                  <motion.div
+                    variants={fadeUp}
+                    className="mt-8 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4 sm:gap-x-6 min-[1200px]:flex min-[1200px]:items-start min-[1200px]:gap-x-8"
+                  >
+                    {product.benefits.map((b) => (
+                      <div
+                        key={b.label}
+                        className="flex flex-col items-center gap-2 text-center"
+                      >
+                        <Image
+                          src={b.iconSrc}
+                          alt=""
+                          width={64}
+                          height={64}
+                          className="h-12 w-auto sm:h-14 min-[1200px]:h-16"
+                        />
+
+                        <p className="whitespace-pre-line text-[11px] font-regular uppercase leading-snug text-[#3d3d3d] sm:text-[13px] min-[1200px]:text-[10px]">
+                          {b.label}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {product.mosquitoNote && (
+                    <motion.div
+                      variants={fadeUp}
+                      className="mt-6 flex items-center gap-3"
+                    >
+                      <Image
+                        src="/images/mgro/icon/icon-mosquito.svg"
+                        alt=""
+                        width={56}
+                        height={56}
+                        className="h-14 w-14 shrink-0"
+                      />
+
+                      <div>
+                        <p className="text-[15px] font-bold uppercase leading-tight text-red-600">
+                          Prevent Mosquito
+                          <br />
+                          Breeding
+                        </p>
+
+                        <p className="mt-1 text-[13px] leading-relaxed text-[#3d3d3d]">
+                          Stop mosquitoes from laying eggs
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* =====================================================
+                TABLET 768–1199px (REDESIGNED)
+
+                768–1023px (portrait, incl. iPad Air 820px):
+                  - Image is FULL-BLEED (edge to edge, no side padding)
+                  - Bag tucked into a corner, inset from the edge
+                  - Text block below, centered, comfortable reading width
+                  - Benefits as a clean 4-col row, larger icons, readable labels
+
+                1024–1199px (landscape):
+                  - Two-column row, image + text side by side
+                  - Alternates left/right per product, same as desktop rhythm
+                ===================================================== */}
+
+            {/* ---- PORTRAIT 768–1023px: full-bleed image ---- */}
+            <div
+              className={`hidden min-[768px]:max-[1023px]:block ${
+                product.bgTint || products[i - 1]?.bgTint
+                  ? "min-[768px]:max-[1023px]:-mt-16"
+                  : ""
+              }`}
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={viewportOnce}
+                transition={{ duration: 0.7, ease: EASE }}
+                className="relative w-full"
+              >
+                <div className="relative w-full overflow-hidden aspect-[16/10]">
+                  <Image
+                    src={product.image}
+                    alt={`${product.eyebrow} ${product.title}`}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.15,
+                    ease: EASE,
+                  }}
+                  className={`
+                    pointer-events-none absolute z-20 -bottom-14
+                    w-[clamp(170px,22vw,250px)] drop-shadow-2xl
+                    ${bagOnLeft ? "left-6 sm:left-10" : "right-6 sm:right-10"}
+                  `}
+                >
+                  <Image
+                    src={product.bagImage}
+                    alt={`mGRO ${product.title} packaging`}
+                    width={400}
+                    height={560}
+                    sizes="250px"
+                    className="h-auto w-full"
+                  />
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={textContainer}
+                className="mx-auto mt-20 w-full max-w-[760px] px-6 text-center sm:px-8"
+              >
                 <motion.p
                   variants={fadeUp}
-                  className="text-[26px] font-bold italic uppercase leading-none tracking-wide sm:text-[36px] lg:text-[42px]"
-                  style={{
-                    color: DARK_GREEN,
-                  }}
+                  className="text-[30px] font-bold italic uppercase leading-[0.98] tracking-wide"
+                  style={{ color: DARK_GREEN }}
                 >
                   {product.eyebrow}
                 </motion.p>
 
-                {/* TITLE */}
-
                 <motion.h2
                   variants={fadeUp}
-                  className="mt-1 text-[20px] font-bold italic leading-tight sm:text-[26px] lg:text-[30px]"
-                  style={{
-                    color: GREEN,
-                  }}
+                  className="mt-2 text-[22px] font-bold italic leading-[1.1]"
+                  style={{ color: GREEN }}
                 >
                   {product.title}
                 </motion.h2>
 
-                {/* DESCRIPTION */}
-
                 <motion.p
                   variants={fadeUp}
-                  className="mt-4 text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+                  className="mx-auto mt-4 max-w-[480px] text-[15px] leading-[1.65] text-[#606060]"
                 >
                   {product.description.join(" ")}
                 </motion.p>
 
-                {/* BENEFITS */}
-
                 <motion.div
                   variants={fadeUp}
-                  className="mt-8 flex items-start gap-x-8 sm:gap-x-10"
+                  className="mx-auto mt-9 flex max-w-[720px] flex-wrap justify-center gap-x-8 gap-y-6"
                 >
                   {product.benefits.map((b) => (
                     <div
                       key={b.label}
-                      className="flex w-fit flex-col items-center gap-2 text-center"
+                      className="flex w-[150px] flex-col items-center gap-2.5 text-center"
                     >
                       <Image
                         src={b.iconSrc}
                         alt=""
                         width={64}
                         height={64}
-                        className="h-12 w-auto sm:h-14 lg:h-16"
+                        className="h-12 w-auto"
                       />
 
-                      <p className="whitespace-pre-line text-[11px] font-regular uppercase leading-snug text-[#3d3d3d] sm:text-[13px] lg:text-[10px]">
+                      <p className="line-clamp-2 whitespace-pre-line text-[11px] font-medium uppercase leading-[1.35] text-[#3d3d3d]">
                         {b.label}
                       </p>
                     </div>
                   ))}
                 </motion.div>
 
-                {/* MOSQUITO NOTE */}
-
                 {product.mosquitoNote && (
                   <motion.div
                     variants={fadeUp}
-                    className="mt-6 flex items-center gap-3"
+                    className="mx-auto mt-8 flex max-w-[380px] flex-col items-center gap-2 text-center"
                   >
                     <Image
                       src="/images/mgro/icon/icon-mosquito.svg"
                       alt=""
                       width={56}
                       height={56}
-                      className="h-14 w-14 shrink-0"
+                      className="h-12 w-12 shrink-0"
                     />
 
                     <div>
@@ -437,6 +579,145 @@ export default function GrowingSolutionsPage() {
                   </motion.div>
                 )}
               </motion.div>
+            </div>
+
+            {/* ---- LANDSCAPE 1024–1199px: two-column row ---- */}
+            <div className="mx-auto hidden w-full max-w-[1040px] px-8 min-[1024px]:max-[1199px]:block">
+              <div
+                className={`
+                  flex flex-row items-center gap-16 text-left
+                  ${product.imageOnLeft ? "" : "flex-row-reverse"}
+                `}
+              >
+                {/* MEDIA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportOnce}
+                  transition={{ duration: 0.7, ease: EASE }}
+                  className="relative flex-1"
+                >
+                  <div className="relative overflow-visible">
+                    <div className="relative aspect-[16/11] overflow-hidden rounded-[28px] shadow-xl shadow-black/10">
+                      <Image
+                        src={product.image}
+                        alt={`${product.eyebrow} ${product.title}`}
+                        fill
+                        sizes="45vw"
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 14 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={viewportOnce}
+                      transition={{
+                        duration: 0.55,
+                        delay: 0.15,
+                        ease: EASE,
+                      }}
+                      className={`
+                        pointer-events-none absolute z-20 -bottom-11
+                        w-[clamp(150px,19vw,215px)] drop-shadow-2xl
+                        ${bagOnLeft ? "-left-8" : "-right-8"}
+                      `}
+                    >
+                      <Image
+                        src={product.bagImage}
+                        alt={`mGRO ${product.title} packaging`}
+                        width={400}
+                        height={560}
+                        sizes="215px"
+                        className="h-auto w-full"
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* CONTENT */}
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportOnce}
+                  variants={textContainer}
+                  className="flex-1"
+                >
+                  <motion.p
+                    variants={fadeUp}
+                    className="text-[36px] font-bold italic uppercase leading-[0.98] tracking-wide"
+                    style={{ color: DARK_GREEN }}
+                  >
+                    {product.eyebrow}
+                  </motion.p>
+
+                  <motion.h2
+                    variants={fadeUp}
+                    className="mt-2 text-[27px] font-bold italic leading-[1.1]"
+                    style={{ color: GREEN }}
+                  >
+                    {product.title}
+                  </motion.h2>
+
+                  <motion.p
+                    variants={fadeUp}
+                    className="mt-4 max-w-[440px] text-[15px] leading-[1.65] text-[#606060]"
+                  >
+                    {product.description.join(" ")}
+                  </motion.p>
+
+                  <motion.div
+                    variants={fadeUp}
+                    className="mt-9 grid grid-cols-4 items-start gap-x-6 gap-y-4"
+                  >
+                    {product.benefits.map((b) => (
+                      <div
+                        key={b.label}
+                        className="flex min-w-0 flex-col items-center gap-2.5 text-center"
+                      >
+                        <Image
+                          src={b.iconSrc}
+                          alt=""
+                          width={64}
+                          height={64}
+                          className="h-14 w-auto"
+                        />
+
+                        <p className="line-clamp-2 whitespace-pre-line text-[11px] font-medium uppercase leading-[1.3] text-[#3d3d3d]">
+                          {b.label}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {product.mosquitoNote && (
+                    <motion.div
+                      variants={fadeUp}
+                      className="mt-7 flex items-center gap-3"
+                    >
+                      <Image
+                        src="/images/mgro/icon/icon-mosquito.svg"
+                        alt=""
+                        width={56}
+                        height={56}
+                        className="h-12 w-12 shrink-0"
+                      />
+
+                      <div className="text-left">
+                        <p className="text-[15px] font-bold uppercase leading-tight text-red-600">
+                          Prevent Mosquito
+                          <br />
+                          Breeding
+                        </p>
+
+                        <p className="mt-1 text-[13px] leading-relaxed text-[#3d3d3d]">
+                          Stop mosquitoes from laying eggs
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
+              </div>
             </div>
           </section>
         );

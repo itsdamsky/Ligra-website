@@ -8,11 +8,11 @@ import { Search } from "lucide-react";
 const LIGRA_BLUE = "#048099";
 
 const menuItems = [
-  { label: "Technology", href: "/technology" },
-  { label: "Products", href: "/products" },
-  { label: "Applications", href: "/applications" },
-  { label: "Resources", href: "/resources" },
-  { label: "About LiGrA", href: "/about" },
+  { label: "Technology", href: "/growing-media/proven-performance" },
+  { label: "Products", href: "/growing-media" },
+  { label: "Applications", href: "/growing-media/solutions" },
+  { label: "Resources", href: "/growing-media/proven-performance" },
+  { label: "About LiGrA", href: "/" },
 ];
 
 export default function Navbar() {
@@ -144,7 +144,7 @@ export default function Navbar() {
             </div>
 
             <Link
-              href="/contact"
+              href="/growing-media"
               className="inline-flex items-center text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:brightness-110 hover:-translate-y-0.5"
               style={{ backgroundColor: LIGRA_BLUE }}
             >
@@ -208,7 +208,7 @@ export default function Navbar() {
             ))}
           </ul>
           <Link
-            href="/contact"
+            href="/growing-media"
             onClick={() => setIsMobileMenuOpen(false)}
             className="mt-3 flex items-center justify-center text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:brightness-110"
             style={{ backgroundColor: LIGRA_BLUE }}

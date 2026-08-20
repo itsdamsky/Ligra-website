@@ -14,13 +14,13 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const fadeUp = {
   hidden: {
     opacity: 0,
-    y: 28,
+    y: 24,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.65,
+      duration: 0.6,
       ease: EASE,
     },
   },
@@ -39,28 +39,13 @@ const textContainer = {
 const imageLeft = {
   hidden: {
     opacity: 0,
-    x: -25,
+    x: -20,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.7,
-      ease: EASE,
-    },
-  },
-};
-
-const imageRight = {
-  hidden: {
-    opacity: 0,
-    x: 25,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.7,
+      duration: 0.65,
       ease: EASE,
     },
   },
@@ -113,41 +98,50 @@ const structuralAdvantages = [
   },
 ];
 
+/** Reusable section wrapper — keeps spacing + max-width consistent across the page */
+function Section({
+  children,
+  bg = "white",
+  className = "",
+}: {
+  children: React.ReactNode;
+  bg?: "white" | "tint";
+  className?: string;
+}) {
+  return (
+    <section
+      className={`w-full px-5 py-14 sm:px-8 md:py-20 lg:py-24 ${className}`}
+      style={{ backgroundColor: bg === "tint" ? "#FAFFF0" : "#FFFFFF" }}
+    >
+      <div className="mx-auto max-w-[1320px]">{children}</div>
+    </section>
+  );
+}
+
 export default function ProvenPerformancePage() {
   return (
-    <>
+    <div className="overflow-x-hidden motion-reduce:[&_*]:!transition-none motion-reduce:[&_*]:!animate-none">
       {/* =====================================================
           HERO
           ===================================================== */}
       <section
-        className="relative flex h-[260px] w-full items-center overflow-hidden sm:h-[320px] lg:h-[380px]"
-        style={{
-          backgroundColor: "#0F3D1E",
-        }}
+        className="relative flex h-[240px] w-full items-center overflow-hidden sm:h-[300px] md:h-[360px] lg:h-[440px]"
+        style={{ backgroundColor: "#0F3D1E" }}
       >
         {/* HERO IMAGE */}
         <motion.div
-          initial={{
-            opacity: 0,
-            x: 25,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: EASE,
-          }}
-          className="absolute right-0 top-0 h-full w-auto"
+          initial={{ opacity: 0, x: 25 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="absolute inset-0"
         >
           <Image
             src="/images/mgro/bg-horticulture.webp"
             alt="mGRO vertical green wall installation"
-            width={2238}
-            height={1542}
+            fill
             priority
-            className="h-full w-auto"
+            sizes="100vw"
+            className="object-cover object-right"
             style={{
               WebkitMaskImage:
                 "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.05) 8%, rgba(0,0,0,0.12) 16%, rgba(0,0,0,0.28) 25%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.95) 65%, black 75%)",
@@ -155,6 +149,8 @@ export default function ProvenPerformancePage() {
                 "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.05) 8%, rgba(0,0,0,0.12) 16%, rgba(0,0,0,0.28) 25%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.7) 45%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.95) 65%, black 75%)",
             }}
           />
+          {/* subtle bottom fade so hero text stays legible on short viewports */}
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0F3D1E]/60 to-transparent sm:hidden" />
         </motion.div>
 
         {/* HERO COPY */}
@@ -162,14 +158,12 @@ export default function ProvenPerformancePage() {
           initial="hidden"
           animate="visible"
           variants={textContainer}
-          className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6"
+          className="relative z-10 mx-auto w-full max-w-[1320px] px-5 sm:px-8"
         >
           <motion.p
             variants={fadeUp}
-            className="text-[24px] font-bold leading-tight sm:text-[32px] lg:text-[60px]"
-            style={{
-              color: "#8FD14F",
-            }}
+            className="text-[clamp(1.3rem,4vw,3.5rem)] font-bold leading-tight tracking-tight"
+            style={{ color: "#8FD14F" }}
           >
             Horticulture with
           </motion.p>
@@ -180,7 +174,7 @@ export default function ProvenPerformancePage() {
               alt="mGRO"
               width={391}
               height={70}
-              className="mt-1 h-[42px] w-auto sm:h-[52px] lg:h-[102px]"
+              className="mt-1 h-[38px] w-auto sm:h-[48px] md:h-[70px] lg:h-[96px]"
             />
           </motion.div>
         </motion.div>
@@ -189,8 +183,8 @@ export default function ProvenPerformancePage() {
       {/* =====================================================
           20% HIGHER CROP YIELDS
           ===================================================== */}
-      <section className="w-full bg-white px-4 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-start">
+      <Section bg="white">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-start lg:gap-16">
           {/* LEFT */}
           <motion.div
             initial="hidden"
@@ -200,7 +194,7 @@ export default function ProvenPerformancePage() {
           >
             <motion.h2
               variants={fadeUp}
-              className="text-[22px] font-bold sm:text-[26px] lg:text-[40px]"
+              className="text-[clamp(1.4rem,2.6vw,2.5rem)] font-bold leading-tight"
               style={{ color: DARK_GREEN }}
             >
               20% Higher Crop Yields
@@ -208,7 +202,7 @@ export default function ProvenPerformancePage() {
 
             <motion.p
               variants={fadeUp}
-              className="text-[30px] font-semibold"
+              className="mt-1 text-[clamp(1.15rem,2vw,1.875rem)] font-semibold"
               style={{ color: GREEN }}
             >
               Research at Temasek Polytechnic
@@ -216,7 +210,7 @@ export default function ProvenPerformancePage() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] leading-relaxed text-[#606060] sm:text-[15px]"
+              className="mt-3 max-w-[46ch] text-[14px] leading-relaxed text-[#606060] sm:text-[15px]"
             >
               The study, under controlled environment by Centre for Research
               and Opportunities in Plant Science, Temasek Polytechnic, shows
@@ -224,11 +218,8 @@ export default function ProvenPerformancePage() {
             </motion.p>
 
             {/* IMAGE */}
-            <motion.div
-              variants={imageLeft}
-              className="relative mt-20 sm:mt-24"
-            >
-              <div className="relative overflow-hidden rounded-[18px] shadow-xl sm:rounded-[24px]">
+            <motion.div variants={imageLeft} className="relative mt-16 sm:mt-20">
+              <div className="relative overflow-hidden rounded-[18px] shadow-[0_18px_40px_-16px_rgba(15,61,30,0.35)] sm:rounded-[24px]">
                 <Image
                   src="/images/mgro/plant.webp"
                   alt="mGRO trial trays at Temasek Polytechnic"
@@ -241,21 +232,11 @@ export default function ProvenPerformancePage() {
 
               {/* BADGE */}
               <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 12,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportOnce}
-                transition={{
-                  duration: 0.55,
-                  delay: 0.2,
-                  ease: EASE,
-                }}
-                className="pointer-events-none absolute left-1/2 top-0 w-[110px] -translate-x-1/2 -translate-y-1/2 sm:w-[200px]"
+                transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+                className="pointer-events-none absolute left-1/2 top-0 w-[96px] -translate-x-1/2 -translate-y-1/2 drop-shadow-lg sm:w-[150px] lg:w-[190px]"
               >
                 <Image
                   src={YIELD_BADGE}
@@ -274,138 +255,108 @@ export default function ProvenPerformancePage() {
             whileInView="visible"
             viewport={viewportOnce}
             variants={textContainer}
-            className="lg:mt-4"
+            className="lg:mt-2"
           >
             <motion.div
               variants={fadeUp}
-              className="rounded-2xl border border-[#dcecc8] p-3 sm:p-4"
+              className="rounded-2xl border border-[#dcecc8] bg-white p-4 shadow-sm sm:p-5"
             >
-              <h3 className="mb-2 text-center text-[15px] font-semibold text-[#606060]">
+              <h3 className="mb-3 text-center text-[14px] font-semibold uppercase tracking-wide text-[#8a8a8a] sm:text-[15px]">
                 LiGrA Experiment
               </h3>
-
               <LigraChart />
             </motion.div>
 
-            {/* TABLE */}
-            <motion.div
-              variants={fadeUp}
-              className="mt-3 overflow-hidden rounded-xl border border-[#dcecc8]"
-            >
-              <table className="w-full border-collapse text-center text-[12px] sm:text-[13px]">
-                <thead>
-                  <tr>
-                    <th className="border border-[#dcecc8] bg-white px-2 py-2 text-left font-medium text-[#606060]" />
-
-                    <th
-                      className="border border-[#dcecc8] px-2 py-2 font-semibold text-white"
-                      style={{
-                        backgroundColor: "#4C8FE8",
-                      }}
-                    >
-                      Control A
-                    </th>
-
-                    <th
-                      className="border border-[#dcecc8] px-2 py-2 font-semibold text-white"
-                      style={{
-                        backgroundColor: "#F2A649",
-                      }}
-                    >
-                      Control B
-                    </th>
-
-                    <th
-                      className="border border-[#dcecc8] px-2 py-2 font-semibold text-white"
-                      style={{
-                        backgroundColor: "#5FA857",
-                      }}
-                    >
-                      T1
-                    </th>
-
-                    <th
-                      className="border border-[#dcecc8] px-2 py-2 font-semibold text-white"
-                      style={{
-                        backgroundColor: "#D9534F",
-                      }}
-                    >
-                      T2
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {ligraTableRows.map((row, i) => (
-                    <tr
-                      key={row.label}
-                      className={
-                        i % 2 === 0
-                          ? "bg-[#FAFFF0]"
-                          : "bg-white"
-                      }
-                    >
-                      <td className="border border-[#dcecc8] px-2 py-2 text-left font-medium text-[#606060]">
-                        {row.label}
-                      </td>
-
-                      <td className="border border-[#dcecc8] px-2 py-2 text-[#606060]">
-                        {row.controlA}
-                      </td>
-
-                      <td className="border border-[#dcecc8] px-2 py-2 text-[#606060]">
-                        {row.controlB}
-                      </td>
-
-                      <td className="border border-[#dcecc8] px-2 py-2 text-[#606060]">
-                        {row.t1}
-                      </td>
-
-                      <td className="border border-[#dcecc8] px-2 py-2 text-[#606060]">
-                        {row.t2}
-                      </td>
+            {/* TABLE — scrollable on narrow screens so nothing gets clipped */}
+            <motion.div variants={fadeUp} className="mt-4">
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[340px] border-collapse rounded-xl text-center text-[11px] sm:min-w-0 sm:text-[13px]">
+                  <thead>
+                    <tr>
+                      <th className="border border-[#dcecc8] bg-white px-1.5 py-1.5 text-left font-medium text-[#606060] sm:px-2 sm:py-2" />
+                      <th
+                        className="border border-[#dcecc8] px-1.5 py-1.5 font-semibold text-white sm:px-2 sm:py-2"
+                        style={{ backgroundColor: "#4C8FE8" }}
+                      >
+                        Control A
+                      </th>
+                      <th
+                        className="border border-[#dcecc8] px-1.5 py-1.5 font-semibold text-white sm:px-2 sm:py-2"
+                        style={{ backgroundColor: "#F2A649" }}
+                      >
+                        Control B
+                      </th>
+                      <th
+                        className="border border-[#dcecc8] px-1.5 py-1.5 font-semibold text-white sm:px-2 sm:py-2"
+                        style={{ backgroundColor: "#5FA857" }}
+                      >
+                        T1
+                      </th>
+                      <th
+                        className="border border-[#dcecc8] px-1.5 py-1.5 font-semibold text-white sm:px-2 sm:py-2"
+                        style={{ backgroundColor: "#D9534F" }}
+                      >
+                        T2
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {ligraTableRows.map((row, i) => (
+                      <tr
+                        key={row.label}
+                        className={i % 2 === 0 ? "bg-[#FAFFF0]" : "bg-white"}
+                      >
+                        <td className="border border-[#dcecc8] px-1.5 py-1.5 text-left font-medium text-[#606060] sm:px-2 sm:py-2">
+                          {row.label}
+                        </td>
+                        <td className="border border-[#dcecc8] px-1.5 py-1.5 text-[#606060] sm:px-2 sm:py-2">
+                          {row.controlA}
+                        </td>
+                        <td className="border border-[#dcecc8] px-1.5 py-1.5 text-[#606060] sm:px-2 sm:py-2">
+                          {row.controlB}
+                        </td>
+                        <td className="border border-[#dcecc8] px-1.5 py-1.5 text-[#606060] sm:px-2 sm:py-2">
+                          {row.t1}
+                        </td>
+                        <td className="border border-[#dcecc8] px-1.5 py-1.5 text-[#606060] sm:px-2 sm:py-2">
+                          {row.t2}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </motion.div>
 
             {/* NOTES */}
-            <motion.div
-              variants={fadeUp}
-              className="mt-3 space-y-2"
-            >
-              <div className="flex items-center gap-3 rounded-xl">
+            <motion.div variants={fadeUp} className="mt-4 space-y-3">
+              <div className="flex items-start gap-3 rounded-xl">
                 <Image
                   src="/images/mgro/icon/icon-treegreen.svg"
                   alt=""
                   width={20}
                   height={20}
-                  className="mt-0.5 h-12 w-12 shrink-0"
+                  className="mt-0.5 h-9 w-9 shrink-0 sm:h-10 sm:w-10"
                 />
-
                 <p className="text-[13px] leading-relaxed text-[#606060]">
                   Both T2 and Control B contain bio-organisms, allowing for a
                   fair assessment of the growth impact from LiGrA in T2.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 rounded-xl">
+              <div className="flex items-start gap-3 rounded-xl">
                 <Image
                   src="/images/mgro/icon/icon-bullgreen.svg"
                   alt=""
                   width={20}
                   height={20}
-                  className="mt-0.5 h-12 w-12 shrink-0"
+                  className="mt-0.5 h-9 w-9 shrink-0 sm:h-10 sm:w-10"
                 />
-
                 <p className="text-[13px] leading-relaxed text-[#606060]">
                   When T2 is compared with Control A, which contains no
                   bio-organisms, it shows that adding bio-organisms and LiGrA{" "}
-                  <span
-                    className="font-semibold"
-                    style={{ color: DARK_GREEN }}
-                  >
+                  <span className="font-semibold" style={{ color: DARK_GREEN }}>
                     yields 37% more crops.
                   </span>
                 </p>
@@ -413,18 +364,13 @@ export default function ProvenPerformancePage() {
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </Section>
 
       {/* =====================================================
           EDIBLE GREEN WALL
           ===================================================== */}
-      <section
-        className="w-full px-4 py-14 sm:px-6 sm:py-20"
-        style={{
-          backgroundColor: "#FAFFF0",
-        }}
-      >
-        <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+      <Section bg="tint">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16">
           {/* TEXT */}
           <motion.div
             initial="hidden"
@@ -434,7 +380,7 @@ export default function ProvenPerformancePage() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-[30px] font-bold tracking-wide"
+              className="text-[15px] font-bold uppercase tracking-[0.14em]"
               style={{ color: GREEN }}
             >
               Featured in
@@ -442,7 +388,7 @@ export default function ProvenPerformancePage() {
 
             <motion.h2
               variants={fadeUp}
-              className="text-[22px] font-bold leading-snug sm:text-[26px] lg:text-[40px]"
+              className="mt-1 text-[clamp(1.3rem,2.6vw,2.5rem)] font-bold leading-snug"
               style={{ color: DARK_GREEN }}
             >
               Singapore Sustainability Academy&rsquo;s Edible Green Wall
@@ -450,7 +396,7 @@ export default function ProvenPerformancePage() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] font-light leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-4 max-w-[52ch] text-[14px] font-light leading-relaxed text-[#606060] sm:text-[16px]"
             >
               Launched by the Singapore Sustainability Academy, the Edible
               Green Wall utilizes potting soil combined with LiGrA as the
@@ -459,14 +405,14 @@ export default function ProvenPerformancePage() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-4 text-[14px] font-bold text-[#606060] sm:text-[20px]"
+              className="mt-5 text-[14px] font-bold text-[#606060] sm:text-[18px]"
             >
-              Benefit of using mGRO:
+              Benefit of using mGRO
             </motion.p>
 
             <motion.p
               variants={fadeUp}
-              className="mt-1 text-[14px] font-light leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-1 max-w-[52ch] text-[14px] font-light leading-relaxed text-[#606060] sm:text-[16px]"
             >
               Enhances soil structure by improving aeration, drainage, and
               resistance to compaction. This creates a healthier root
@@ -477,128 +423,93 @@ export default function ProvenPerformancePage() {
 
           {/* IMAGE */}
           <motion.div
-            initial={{
-              opacity: 0,
-              x: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
+            initial={{ opacity: 0, x: 25 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={viewportOnce}
-            transition={{
-              duration: 0.7,
-              ease: EASE,
-            }}
-            className="relative rounded-[26px] shadow-[-10px_16px_24px_-4px_rgba(0,0,0,0.2)]"
+            transition={{ duration: 0.65, ease: EASE }}
+            className="relative overflow-hidden rounded-[20px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.25)] sm:rounded-[26px]"
           >
             <Image
               src="/images/mgro/ssa-greenwall.webp"
               alt="Singapore Sustainability Academy's Edible Green Wall installation"
               width={1200}
               height={800}
-              sizes="(max-width: 1024px) 100vw, 65vw"
+              sizes="(max-width: 768px) 100vw, 65vw"
               className="h-auto w-full"
             />
           </motion.div>
         </div>
-      </section>
+      </Section>
 
       {/* =====================================================
           STRUCTURAL ADVANTAGES
           ===================================================== */}
-      <section className="w-full bg-white px-4 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-[1400px]">
-          <motion.h2
-            initial={{
-              opacity: 0,
-              y: 28,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={viewportOnce}
-            transition={{
-              duration: 0.65,
-              ease: EASE,
-            }}
-            className="text-center text-[20px] font-bold sm:text-[30px]"
-            style={{
-              color: GREEN,
-            }}
-          >
-            Structural Advantages
-          </motion.h2>
+      <Section bg="white">
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="text-center text-[clamp(1.15rem,2.2vw,1.875rem)] font-bold"
+          style={{ color: GREEN }}
+        >
+          Structural Advantages
+        </motion.h2>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={textContainer}
-            className="mt-8 flex flex-col items-center justify-center gap-y-8 sm:flex-row sm:flex-wrap sm:items-start sm:gap-y-6"
-          >
-            {structuralAdvantages.map((item, i) => (
-              <motion.div
-                key={item.title}
-                variants={fadeUp}
-                className={`flex max-w-[370px] items-center gap-3 px-0 sm:px-8 ${
-                  i !== 0
-                    ? "sm:border-l sm:border-[#dcecc8]"
-                    : ""
-                }`}
-              >
-                <Image
-                  src={item.iconSrc}
-                  alt=""
-                  width={32}
-                  height={32}
-                  className="h-20 w-20 shrink-0"
-                />
-
-                <div>
-                  <p className="text-[14px] font-bold text-[#606060] sm:text-[15px]">
-                    {item.title}:
-                  </p>
-
-                  <p className="mt-1 text-[13px] leading-relaxed text-[#606060] sm:text-[14px]">
-                    {item.body}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={textContainer}
+          className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+        >
+          {structuralAdvantages.map((item, i) => (
+            <motion.div
+              key={item.title}
+              variants={fadeUp}
+              className={`flex items-start gap-4 px-0 sm:px-6 ${
+                i !== 0 ? "sm:border-l sm:border-[#dcecc8]" : ""
+              } ${i === structuralAdvantages.length - 1 ? "sm:col-span-2 sm:mx-auto sm:max-w-[370px] lg:col-span-1 lg:mx-0 lg:max-w-none" : ""}`}
+            >
+              <Image
+                src={item.iconSrc}
+                alt=""
+                width={32}
+                height={32}
+                className="h-14 w-14 shrink-0 sm:h-16 sm:w-16"
+              />
+              <div>
+                <p className="text-[14px] font-bold text-[#606060] sm:text-[15px]">
+                  {item.title}
+                </p>
+                <p className="mt-1 text-[13px] leading-relaxed text-[#606060] sm:text-[14px]">
+                  {item.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Section>
 
       {/* =====================================================
           TAMAN DAMAI
           ===================================================== */}
-      <section className="w-full px-4 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-[1400px] gap-26 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+      <Section bg="tint">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           {/* IMAGE */}
           <motion.div
-            initial={{
-              opacity: 0,
-              x: -25,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={viewportOnce}
-            transition={{
-              duration: 0.7,
-              ease: EASE,
-            }}
-            className="relative rounded-[26px] shadow-[-10px_16px_24px_-4px_rgba(0,0,0,0.2)]"
+            transition={{ duration: 0.65, ease: EASE }}
+            className="relative overflow-hidden rounded-[20px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.25)] sm:rounded-[26px] lg:order-1"
           >
             <Image
               src="/images/mgro/taman-damai.webp"
               alt="mGRO used in Taman Damai Communal Garden"
               width={1000}
               height={700}
-              sizes="(max-width: 1024px) 100vw, 55vw"
+              sizes="(max-width: 768px) 100vw, 55vw"
               className="h-auto w-full"
             />
           </motion.div>
@@ -609,33 +520,29 @@ export default function ProvenPerformancePage() {
             whileInView="visible"
             viewport={viewportOnce}
             variants={textContainer}
-            className="-mt-20"
+            className="lg:order-2"
           >
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="hidden sm:block">
               <Image
                 src="/images/mgro/icon/icon-arrow.svg"
                 alt=""
                 width={64}
                 height={64}
-                className="h-24 w-24 lg:-ml-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+                className="h-16 w-16 lg:-ml-16 lg:h-24 lg:w-24"
               />
             </motion.div>
 
             <motion.h2
               variants={fadeUp}
-              className="-mt-6 text-[20px] font-bold sm:text-[40px]"
-              style={{
-                color: DARK_GREEN,
-              }}
+              className="mt-1 text-[clamp(1.3rem,2.6vw,2.5rem)] font-bold leading-tight sm:-mt-2"
+              style={{ color: DARK_GREEN }}
             >
-              Proven in Taman Damai
-              <br />
-              Communal Garden
+              Proven in Taman Damai Communal Garden
             </motion.h2>
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-4 max-w-[52ch] text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
             >
               The approach of combining mGRO with soil has been successfully
               tested at a Communal Garden in Taman Damai, located within the
@@ -644,62 +551,67 @@ export default function ProvenPerformancePage() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-3 max-w-[52ch] text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
             >
-              A 40% mGRO : 60% soil mixture was used to reduce the stickiness
-              of the clayey soil while maintaining favourable conditions for
-              plant growth.
+              A{" "}
+              <span className="font-semibold" style={{ color: DARK_GREEN }}>
+                40% mGRO : 60% soil
+              </span>{" "}
+              mixture was used to reduce the stickiness of the clayey soil
+              while maintaining favourable conditions for plant growth.
             </motion.p>
           </motion.div>
         </div>
-      </section>
+      </Section>
 
       {/* =====================================================
           SEED GERMINATION
           ===================================================== */}
-      <section className="w-full bg-white px-4 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-[1400px] gap-26 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+      <Section bg="white">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           {/* TEXT */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={textContainer}
+            className="lg:order-1"
           >
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="hidden sm:block">
               <Image
                 src="/images/mgro/icon/icon-arrow.svg"
                 alt=""
                 width={64}
                 height={64}
-                className="h-24 w-24 scale-x-[-1] sm:h-28 sm:w-28 lg:h-32 lg:w-32 lg:-mr-24 lg:ml-auto"
+                className="h-16 w-16 scale-x-[-1] lg:ml-auto lg:-mr-16 lg:h-24 lg:w-24"
               />
             </motion.div>
 
             <motion.h2
               variants={fadeUp}
-              className="-mt-6 text-[20px] font-bold sm:text-[40px]"
-              style={{
-                color: DARK_GREEN,
-              }}
+              className="mt-1 text-[clamp(1.3rem,2.6vw,2.5rem)] font-bold leading-tight sm:-mt-2"
+              style={{ color: DARK_GREEN }}
             >
               Healthy Seed Germination
             </motion.h2>
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-4 max-w-[52ch] text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
             >
               Kang Kong seeds were grown in two different growing media: 100%
-              soil and a 50:50 mGRO-soil blend (by volume). Both media produced
-              healthy shoots within 5 days, while the mGRO composite weighed
-              only 55% as much as soil, creating a significantly lighter
-              growing medium.
+              soil and a 50:50 mGRO-soil blend (by volume). Both media
+              produced healthy shoots within 5 days, while the mGRO composite
+              weighed only{" "}
+              <span className="font-semibold" style={{ color: DARK_GREEN }}>
+                55% as much as soil
+              </span>
+              , creating a significantly lighter growing medium.
             </motion.p>
 
             <motion.p
               variants={fadeUp}
-              className="mt-3 text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
+              className="mt-3 max-w-[52ch] text-[14px] leading-relaxed text-[#606060] sm:text-[16px]"
             >
               These promising results support the continued exploration of
               mGRO as a sustainable solution for horticultural applications.
@@ -708,32 +620,23 @@ export default function ProvenPerformancePage() {
 
           {/* IMAGE */}
           <motion.div
-            initial={{
-              opacity: 0,
-              x: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={viewportOnce}
-            transition={{
-              duration: 0.7,
-              ease: EASE,
-            }}
-            className="relative rounded-[26px] shadow-[10px_16px_24px_-4px_rgba(0,0,0,0.2)]"
+            transition={{ duration: 0.65, ease: EASE }}
+            className="relative overflow-hidden rounded-[20px] shadow-[0_18px_40px_-16px_rgba(0,0,0,0.25)] sm:rounded-[26px] lg:order-2"
           >
             <Image
               src="/images/mgro/seed-germination.webp"
               alt="Kang Kong seedlings grown in mGRO-soil blend"
               width={1000}
               height={700}
-              sizes="(max-width: 1024px) 100vw, 55vw"
+              sizes="(max-width: 768px) 100vw, 55vw"
               className="h-auto w-full"
             />
           </motion.div>
         </div>
-      </section>
-    </>
+      </Section>
+    </div>
   );
 }

@@ -62,88 +62,53 @@ const YIELD_BADGE = "/images/mgro/badge.svg";
 ============================================================ */
 
 const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 35,
-  },
+  hidden: { opacity: 0, y: 35 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const fadeLeft = {
-  hidden: {
-    opacity: 0,
-    x: -50,
-  },
+  hidden: { opacity: 0, x: -50 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const fadeRight = {
-  hidden: {
-    opacity: 0,
-    x: 50,
-  },
+  hidden: { opacity: 0, x: 50 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const staggerContainer = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
 const rowAnimation = {
-  hidden: {
-    opacity: 0,
-    y: 18,
-  },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const scaleIn = {
-  hidden: {
-    opacity: 0,
-    scale: 0.85,
-    y: 20,
-  },
+  hidden: { opacity: 0, scale: 0.85, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -158,93 +123,135 @@ export default function MgroVsPerliteSection() {
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center">
 
           {/* ========================================================
-              MOBILE / TABLET
+              MOBILE / TABLET — single card, sticky column header,
+              mGRO column tinted full-height so the "winner" reads
+              at a glance without needing to scan every row.
           ======================================================== */}
 
           <motion.div
-            className="space-y-3 lg:hidden"
+            className="lg:hidden"
             initial={{ opacity: 1 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
           >
-            {/* Header */}
             <motion.div
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="grid grid-cols-[1fr_auto] gap-3 px-1 text-center text-[13px] font-semibold uppercase text-[#259539] sm:text-sm"
+              className="relative flex"
             >
-              <span className="text-left">Property</span>
-
-              <span className="grid grid-cols-2 gap-3">
-                <span>Perlite</span>
-                <span>mGRO</span>
-              </span>
-            </motion.div>
-
-            {/* Rows */}
-            {rows.map((row, i) => (
-              <motion.div
-                key={row.label}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
-                whileHover={{
-                  y: -3,
-                  transition: { duration: 0.2 },
-                }}
-                className="rounded-2xl border border-[#dcecc8] bg-white p-3 shadow-sm transition-shadow hover:shadow-md sm:p-4"
-              >
-                <div className="mb-3 flex items-center gap-2">
-                  <Image
-                    src={row.iconSrc}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="h-5 w-5 shrink-0 sm:h-6 sm:w-6"
-                  />
-
-                  <span className="text-[14px] font-semibold text-[#606060] sm:text-[16px]">
-                    {row.label}
-                  </span>
+              {/* Main table — Property + Perlite, same as desktop */}
+              <div className="flex-1 overflow-hidden rounded-[16px] border border-[#dcecc8] bg-white shadow-sm">
+                {/* Header */}
+                <div
+                  className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)]"
+                  style={{ backgroundColor: "#EEF4DF" }}
+                >
+                  <div
+                    className="border-r border-[#dcecc8] px-3 py-4 text-center text-[12.5px] font-semibold uppercase tracking-wide sm:px-4 sm:text-[15px]"
+                    style={{ color: DARK_GREEN }}
+                  >
+                    Property
+                  </div>
+                  <div
+                    className="px-2 py-4 text-center text-[12.5px] font-semibold uppercase tracking-wide sm:px-4 sm:text-[15px]"
+                    style={{ color: DARK_GREEN }}
+                  >
+                    Perlite
+                  </div>
+                  <div />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Perlite */}
-                  <div className="rounded-xl bg-gray-50 py-2.5 text-center">
-                    <p className="text-[13px] italic text-gray-500 sm:text-[15px]">
-                      {row.perlite}
-                    </p>
-                  </div>
-
-                  {/* mGRO */}
+                {/* Rows */}
+                {rows.map((row, i) => (
                   <motion.div
-                    whileHover={{
-                      scale: 1.03,
-                    }}
-                    className="flex items-center justify-center gap-1.5 rounded-xl py-2.5"
-                    style={{
-                      backgroundColor: "#FAFFF0",
-                      border: `1px solid ${DARK_GREEN}`,
-                    }}
+                    key={row.label}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
+                    className={`grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)] items-center ${
+                      i !== rows.length - 1 ? "border-b border-[#eef2e6]" : ""
+                    }`}
+                  >
+                    {/* Label — block is centered in the column, but icon+text stay left-aligned to each other via a fixed-width wrapper so they don't zigzag */}
+                    <div className="flex items-center justify-center border-r border-[#eef2e6] px-3 py-4 sm:px-4 sm:py-5">
+                      <div className="flex w-[130px] items-center gap-2 sm:w-[150px] sm:gap-2.5">
+                        <Image
+                          src={row.iconSrc}
+                          alt=""
+                          width={18}
+                          height={18}
+                          className="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
+                        />
+                        <span className="text-[12.5px] font-semibold leading-tight text-[#606060] sm:text-[15px]">
+                          {row.label}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Perlite */}
+                    <div className="flex items-center justify-center px-1 py-4 text-center sm:py-5">
+                      <span className="text-[12px] italic text-gray-500 sm:text-[14px]">
+                        {row.perlite}
+                      </span>
+                    </div>
+
+                    <div />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* ======================================================
+                  mGRO FLOATING CARD — full rounding on all sides,
+                  overlapping the main table like on desktop.
+              ====================================================== */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+                className="absolute inset-y-0 right-0 flex w-[30%] flex-col overflow-hidden rounded-[14px] border bg-white shadow-lg sm:rounded-[16px]"
+                style={{
+                  borderColor: DARK_GREEN,
+                  boxShadow: "0 14px 24px -10px rgba(37,149,57,0.35)",
+                }}
+              >
+                {/* mGRO header */}
+                <div
+                  className="px-2 py-4 text-center text-[12.5px] font-semibold uppercase tracking-wide text-white sm:py-[18px] sm:text-[15px]"
+                  style={{ backgroundColor: DARK_GREEN }}
+                >
+                  mGRO
+                </div>
+
+                {/* mGRO rows */}
+                {rows.map((row, i) => (
+                  <div
+                    key={row.label}
+                    className={`flex flex-1 items-center justify-center gap-1.5 px-2 py-4 sm:py-5 ${
+                      i !== rows.length - 1 ? "border-b border-[#e2f0d4]" : ""
+                    }`}
+                    style={{ backgroundColor: "#FAFFF0" }}
                   >
                     <Image
                       src={CHECK_ICON_SRC}
                       alt=""
-                      width={16}
-                      height={16}
-                      className="h-4 w-4 shrink-0"
+                      width={14}
+                      height={14}
+                      className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4"
                     />
-
-                    <p className="text-[13px] italic text-[#606060] sm:text-[15px]">
+                    <span
+                      className="text-[12px] italic sm:text-[14px]"
+                      style={{ color: "#606060" }}
+                    >
                       {row.mgro}
-                    </p>
-                  </motion.div>
-                </div>
+                    </span>
+                  </div>
+                ))}
               </motion.div>
-            ))}
+            </motion.div>
           </motion.div>
 
           {/* ========================================================
@@ -329,15 +336,12 @@ export default function MgroVsPerliteSection() {
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               whileHover={{
                 y: -5,
-                transition: {
-                  duration: 0.3,
-                },
+                transition: { duration: 0.3 },
               }}
               className="absolute inset-y-0 right-0 flex w-[34%] flex-col rounded-[16px] border bg-white shadow-xl"
               style={{
                 borderColor: DARK_GREEN,
-                boxShadow:
-                  "0 20px 35px -12px rgba(37,149,57,0.35)",
+                boxShadow: "0 20px 35px -12px rgba(37,149,57,0.35)",
               }}
             >
               {/* mGRO header */}
@@ -356,17 +360,9 @@ export default function MgroVsPerliteSection() {
               {rows.map((row, i) => (
                 <motion.div
                   key={row.label}
-                  initial={{
-                    opacity: 0,
-                    x: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{
                     delay: 0.5 + i * 0.1,
                     duration: 0.5,
@@ -377,29 +373,18 @@ export default function MgroVsPerliteSection() {
                       ? "rounded-b-[15px]"
                       : "border-b border-[#e2f0d4] group-hover:border-transparent"
                   }`}
-                  style={{
-                    backgroundColor: "#FAFFF0",
-                  }}
+                  style={{ backgroundColor: "#FAFFF0" }}
                 >
                   {/* Hover glow */}
                   <div
                     className="pointer-events-none absolute inset-0 scale-95 rounded-[12px] opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100"
-                    style={{
-                      boxShadow:
-                        "0 10px 18px -6px rgba(37,149,57,0.35)",
-                    }}
+                    style={{ boxShadow: "0 10px 18px -6px rgba(37,149,57,0.35)" }}
                   />
 
                   <div className="relative mx-auto flex w-[150px] items-center justify-start gap-5">
                     <motion.div
-                      whileHover={{
-                        scale: 1.15,
-                        rotate: 8,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                      }}
+                      whileHover={{ scale: 1.15, rotate: 8 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
                       <Image
                         src={CHECK_ICON_SRC}
@@ -442,9 +427,7 @@ export default function MgroVsPerliteSection() {
               mGRO vs Perlite
             </motion.h2>
 
-            <motion.ul
-              className="mt-4 space-y-4 sm:space-y-5"
-            >
+            <motion.ul className="mt-5 space-y-4 sm:mt-6 sm:space-y-5">
               {bullets.map((bullet, i) => (
                 <motion.li
                   key={bullet.title}
@@ -452,39 +435,20 @@ export default function MgroVsPerliteSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.7, delay: i * 0.12, ease: "easeOut" }}
-                  whileHover={{
-                    x: 5,
-                    transition: {
-                      duration: 0.2,
-                    },
-                  }}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
                   className="flex gap-3"
                 >
                   <motion.span
-                    initial={{
-                      scale: 0,
-                    }}
-                    whileInView={{
-                      scale: 1,
-                    }}
-                    viewport={{
-                      once: true,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 18,
-                    }}
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 400, damping: 18 }}
                     className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{
-                      backgroundColor: DARK_GREEN,
-                    }}
+                    style={{ backgroundColor: DARK_GREEN }}
                   />
 
                   <p className="text-[14px] leading-relaxed text-[#606060] sm:text-[16px]">
-                    <span className="font-bold text-[#606060]">
-                      {bullet.title}
-                    </span>
+                    <span className="font-bold text-[#606060]">{bullet.title}</span>
                     <br />
                     {bullet.body}
                   </p>
@@ -500,7 +464,7 @@ export default function MgroVsPerliteSection() {
       ============================================================ */}
 
       <motion.div
-        className="relative z-20 mx-auto -mt-10 max-w-4xl px-4 sm:-mt-14 sm:px-6 lg:-mt-16"
+        className="relative z-20 mx-auto mt-14 max-w-4xl px-4 sm:mt-16 sm:px-6 lg:-mt-16"
         initial={{ opacity: 1 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.25 }}
@@ -513,13 +477,8 @@ export default function MgroVsPerliteSection() {
           className="relative overflow-hidden rounded-[18px] shadow-xl sm:rounded-[24px]"
         >
           <motion.div
-            whileHover={{
-              scale: 1.025,
-            }}
-            transition={{
-              duration: 0.7,
-              ease: "easeOut",
-            }}
+            whileHover={{ scale: 1.025 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <Image
               src={GREENHOUSE_PHOTO}
@@ -539,20 +498,9 @@ export default function MgroVsPerliteSection() {
 
         <motion.div
           className="pointer-events-none absolute left-1/2 top-0 w-[130px] -translate-x-1/2 -translate-y-1/2 sm:w-[190px] lg:w-[240px]"
-          initial={{
-            opacity: 0,
-            scale: 0.5,
-            rotate: -12,
-          }}
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-            rotate: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.5,
-          }}
+          initial={{ opacity: 0, scale: 0.5, rotate: -12 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{
             delay: 0.25,
             duration: 0.8,
@@ -614,9 +562,7 @@ export default function MgroVsPerliteSection() {
             <Link
               href="/growing-media/proven-performance"
               className="mt-6 inline-block rounded-full px-6 py-2.5 text-xs font-semibold tracking-wide text-white transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-lg cursor-pointer sm:px-8 sm:py-3 sm:text-sm"
-              style={{
-                backgroundColor: DARK_GREEN,
-              }}
+              style={{ backgroundColor: DARK_GREEN }}
             >
               EXPLORE MORE
             </Link>

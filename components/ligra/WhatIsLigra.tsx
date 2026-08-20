@@ -59,7 +59,7 @@ export default function WhatIsLigra() {
             </p>
 
             <Link
-              href="/technology"
+              href="/growing-media/proven-performance"
               className="mt-7 inline-flex items-center gap-2 text-white text-sm font-semibold px-6 py-3 rounded-md transition-all duration-200 hover:shadow-lg hover:gap-3"
               style={{ backgroundColor: LIGRA_BLUE }}
             >

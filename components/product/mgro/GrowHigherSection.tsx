@@ -42,7 +42,7 @@ export default function GrowHigherSection() {
     <div className="relative w-full overflow-hidden">
       {/* Dekorasi daun — ANIMASI DARI KIRI */}
       <motion.div
-        className="pointer-events-none absolute -left-6 top-[260px] z-20 w-[220px] opacity-70 sm:top-[320px] sm:w-[300px] lg:w-[360px]"
+        className="pointer-events-none absolute -left-6 top-[260px] z-20 w-[160px] opacity-70 sm:top-[320px] sm:w-[220px] lg:w-[360px]"
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 0.7, x: 0 }}
         viewport={{ once: false, amount: 0.15 }}
@@ -61,12 +61,9 @@ export default function GrowHigherSection() {
       </motion.div>
 
       {/* SECTION 1 — hijau muda / foto full-bleed */}
-      <section className="relative z-10 grid h-[624px] w-full bg-[#FAFFF0] lg:grid-cols-2">
+      <section className="relative z-10 grid w-full bg-[#FAFFF0] lg:grid-cols-2 lg:min-h-[624px]">
         <div
-          className="flex h-full flex-col justify-center pr-8 py-16 sm:pr-14 sm:py-20 lg:pr-16 lg:py-0"
-          style={{
-            paddingLeft: "max(24px, calc((100vw - 1400px) / 2 + 24px))",
-          }}
+          className="flex h-full flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:pr-16 lg:py-0 lg:pl-[max(24px,calc((100vw-1400px)/2+24px))]"
         >
           {/* ICON */}
           <motion.div
@@ -143,7 +140,7 @@ export default function GrowHigherSection() {
         </div>
 
         {/* FOTO — TIDAK ADA ANIMASI */}
-        <div className="relative h-full w-full">
+        <div className="relative h-[280px] w-full sm:h-[360px] lg:h-full">
           <Image
             src={ROOFTOP_PHOTO}
             alt="Rooftop garden with lightweight mGRO planter boxes and lush plants"
@@ -236,7 +233,7 @@ export default function GrowHigherSection() {
                     className="h-10 w-10 shrink-0"
                   />
 
-                  <p className="text-base font-light leading-relaxed text-[#606060] sm:text-[20px]">
+                  <p className="text-base font-light leading-relaxed text-[#606060] sm:text-[16px]">
                     {benefit.text}
                   </p>
                 </motion.li>

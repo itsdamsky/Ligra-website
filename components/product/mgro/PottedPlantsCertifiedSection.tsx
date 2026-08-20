@@ -37,7 +37,7 @@ export default function PottedPlantsCertifiedSection() {
     <div className="relative w-full overflow-hidden">
       {/* Dekorasi daun — ANIMASI DARI KANAN */}
       <motion.div
-        className="pointer-events-none absolute -right-6 top-[260px] z-20 w-[220px] -scale-x-100 opacity-70 sm:top-[320px] sm:w-[300px] lg:w-[360px]"
+        className="pointer-events-none absolute -right-6 top-[260px] z-20 w-[160px] -scale-x-100 opacity-70 sm:top-[320px] sm:w-[220px] lg:w-[360px]"
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 0.7, x: 0 }}
         viewport={{ once: false, amount: 0.15 }}
@@ -56,9 +56,9 @@ export default function PottedPlantsCertifiedSection() {
       </motion.div>
 
       {/* SECTION 1 — hijau muda (kiri: foto full-bleed) / (kanan: heading + teks), tinggi fix 624px */}
-      <section className="relative z-10 grid h-[624px] w-full bg-[#FAFFF0] lg:grid-cols-2">
+      <section className="relative z-10 grid w-full bg-[#FAFFF0] lg:grid-cols-2 lg:min-h-[624px]">
         {/* FOTO — TIDAK DIANIMASIKAN */}
-        <div className="relative h-full w-full">
+        <div className="relative h-[280px] w-full sm:h-[360px] lg:h-full">
           <Image
             src={POTTED_PLANTS_PHOTO}
             alt="mGRO lightweight aggregate used in potted plants"
@@ -69,11 +69,7 @@ export default function PottedPlantsCertifiedSection() {
 
         {/* TEXT CONTENT */}
         <div
-          className="flex h-full flex-col justify-center pl-8 py-16 sm:pl-14 sm:py-20 lg:py-0"
-          style={{
-            paddingRight:
-              "max(24px, calc((100vw - 1400px) / 2 + 24px))",
-          }}
+          className="flex h-full flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:py-0 lg:pr-[max(24px,calc((100vw-1400px)/2+24px))]"
         >
           {/* HEADING */}
           <motion.h2
@@ -152,7 +148,14 @@ export default function PottedPlantsCertifiedSection() {
               </span>
             </span>
 
-            {/* ICON DAUN KECIL — ANIMASI */}
+            {/* ICON DAUN KECIL — ANIMASI
+                Sebelumnya ukuran & margin cuma didefinisikan untuk 2 titik
+                (mobile: h-10/w-10, sm ke atas: h-26/w-26) sehingga ada
+                lompatan drastis di breakpoint 640px — di layar mobile kecil
+                daunnya jadi terlihat mini & posisinya nggak proporsional
+                dibanding versi tablet/desktop. Sekarang dibuat bertahap
+                (mobile → sm → lg) supaya rasio ukuran & offset-nya konsisten
+                di semua ukuran layar. */}
             <motion.div
               initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -168,7 +171,7 @@ export default function PottedPlantsCertifiedSection() {
                 alt=""
                 width={32}
                 height={32}
-                className="-ml-6 h-10 w-10 shrink-0 self-end sm:h-26 sm:w-26"
+                className="-ml-3 h-14 w-14 shrink-0 self-end sm:-ml-5 sm:h-20 sm:w-20 lg:-ml-6 lg:h-26 lg:w-26"
               />
             </motion.div>
           </motion.h2>

@@ -70,10 +70,10 @@ const PRODUCTS: ProductConfig[] = [
 ];
 
 const footerLinks = [
-  { label: "FAQ", href: "/faq" },
-  { label: "Shipping Policy", href: "/shipping-policy" },
-  { label: "About Us", href: "/about" },
-  { label: "Our Products", href: "/products" },
+  { label: "FAQ", href: "/growing-media" },
+  { label: "Shipping Policy", href: "/growing-media" },
+  { label: "About Us", href: "/" },
+  { label: "Our Products", href: "/growing-media" },
 ];
 
 const socials = [
@@ -82,25 +82,24 @@ const socials = [
   { icon: LinkedinIcon, href: "https://linkedin.com", label: "LinkedIn" },
 ];
 
+const viewportRepeat = { once: false, amount: 0.15 } as const;
+
 export default function Footer() {
   const pathname = usePathname();
 
   const activeProduct = PRODUCTS.find((p) => p.match(pathname)) ?? null;
 
   return (
-    <footer className="relative overflow-hidden bg-[#FAF8F6] pt-12 pb-8">
+    <footer className="relative overflow-hidden bg-[#FAF8F6] pt-12 pb-8 sm:pt-16 sm:pb-10 lg:pt-20">
       {/* ======================================================
           DEKORASI DAUN KIRI — ANIMASI DARI KIRI
           ====================================================== */}
       <motion.div
-        className="pointer-events-none absolute -left-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]"
+        className="pointer-events-none absolute -left-10 top-0 z-0 w-[140px] opacity-70 sm:w-[220px] lg:w-[300px]"
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 0.7, x: 0 }}
-        viewport={{ once: false, amount: 0.15 }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
+        viewport={viewportRepeat}
+        transition={{ duration: 1, ease: "easeOut" }}
       >
         <Image
           src={LEAF_DECOR_LEFT}
@@ -115,14 +114,11 @@ export default function Footer() {
           DEKORASI DAUN KANAN — ANIMASI DARI KANAN
           ====================================================== */}
       <motion.div
-        className="pointer-events-none absolute -right-10 top-0 z-0 w-[180px] opacity-70 sm:w-[240px] lg:w-[300px]"
+        className="pointer-events-none absolute -right-10 top-0 z-0 w-[140px] opacity-70 sm:w-[220px] lg:w-[300px]"
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 0.7, x: 0 }}
-        viewport={{ once: false, amount: 0.15 }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
+        viewport={viewportRepeat}
+        transition={{ duration: 1, ease: "easeOut" }}
       >
         <Image
           src={LEAF_DECOR_RIGHT}
@@ -133,7 +129,7 @@ export default function Footer() {
         />
       </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-8">
           {/* ==================================================
               KIRI: LOGO + NEWSLETTER
@@ -141,36 +137,30 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
-            transition={{
-              duration: 0.7,
-              ease: "easeOut",
-            }}
+            viewport={viewportRepeat}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {/* LOGO */}
             <motion.div
-              className="flex items-center gap-3"
+              className="flex flex-wrap items-center gap-3 gap-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <Image
                 src="/images/logo/logo.svg"
                 alt="LiGrA - Lightweight Green Aggregates"
                 width={195}
                 height={56}
-                className="h-auto w-[195px]"
+                className="h-auto w-[108px] sm:w-[160px] lg:w-[195px]"
               />
 
               {/* Logo produk aktif */}
               {activeProduct && (
                 <>
                   <span
-                    className="h-26 w-px bg-gray-300"
+                    className="h-8 w-px shrink-0 bg-gray-300 sm:h-11 lg:h-14"
                     aria-hidden="true"
                   />
 
@@ -179,7 +169,7 @@ export default function Footer() {
                     alt={activeProduct.name}
                     width={192}
                     height={70}
-                    className="h-auto w-[192px]"
+                    className="h-auto w-[108px] sm:w-[158px] lg:w-[192px]"
                   />
                 </>
               )}
@@ -187,31 +177,23 @@ export default function Footer() {
 
             {/* GROW WITH US */}
             <motion.h3
-              className="mt-6 text-[32px] font-bold"
+              className="mt-6 text-[26px] font-bold sm:text-[30px] lg:text-[32px]"
               style={{ color: LIGRA_GREEN }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.1,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             >
               Grow with Us
             </motion.h3>
 
             {/* DESCRIPTION */}
             <motion.p
-              className="mt-1 text-sm text-[#606060]"
+              className="mt-1 max-w-md text-sm text-[#606060]"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.15,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
             >
               Get the latest product updates, growing tips, and sustainability
               news delivered to your inbox.
@@ -219,25 +201,21 @@ export default function Footer() {
 
             {/* NEWSLETTER */}
             <motion.form
-              className="mt-4 flex max-w-md items-center overflow-hidden rounded-full border border-gray-300 bg-transparent"
+              className="mt-4 flex w-full max-w-md items-center overflow-hidden rounded-full border border-gray-300 bg-transparent"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.2,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full bg-transparent px-5 py-2.5 text-sm italic text-gray-500 outline-none placeholder:text-gray-400"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-sm italic text-gray-500 outline-none placeholder:text-gray-400 sm:px-5"
               />
 
               <button
                 type="submit"
-                className="m-1 shrink-0 cursor-pointer rounded-full px-6 py-2 text-sm font-semibold text-white transition-colors hover:brightness-110"
+                className="m-1 shrink-0 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:brightness-110 sm:px-6"
                 style={{ backgroundColor: LIGRA_GREEN }}
               >
                 Subscribe
@@ -250,20 +228,11 @@ export default function Footer() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.25,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
             >
               {footerLinks.map((link, i) => (
-                <li
-                  key={link.label}
-                  className="flex items-center gap-2"
-                >
-                  {i !== 0 && (
-                    <span className="text-gray-300">|</span>
-                  )}
+                <li key={link.label} className="flex items-center gap-2">
+                  {i !== 0 && <span className="text-gray-300">|</span>}
 
                   <Link
                     href={link.href}
@@ -276,17 +245,24 @@ export default function Footer() {
             </motion.ul>
           </motion.div>
 
-          {/* DIVIDER */}
+          {/* DIVIDER — vertikal untuk desktop */}
           <motion.span
             className="hidden h-full w-px bg-gray-300 lg:block"
             aria-hidden="true"
             initial={{ opacity: 0, scaleY: 0 }}
             whileInView={{ opacity: 1, scaleY: 1 }}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{
-              duration: 0.8,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          />
+
+          {/* DIVIDER — horizontal, hanya tampil sebelum layout jadi 2 kolom */}
+          <motion.span
+            className="block h-px w-full bg-gray-200 lg:hidden"
+            aria-hidden="true"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           />
 
           {/* ==================================================
@@ -295,17 +271,11 @@ export default function Footer() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
-            transition={{
-              duration: 0.7,
-              ease: "easeOut",
-            }}
+            viewport={viewportRepeat}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {/* CONTACT TITLE */}
-            <h4
-              className="text-sm font-bold"
-              style={{ color: LIGRA_GREEN }}
-            >
+            <h4 className="text-sm font-bold" style={{ color: LIGRA_GREEN }}>
               Contact Us
             </h4>
 
@@ -316,11 +286,7 @@ export default function Footer() {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.1,
-                  ease: "easeOut",
-                }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
               >
                 <MapPin
                   size={16}
@@ -328,7 +294,7 @@ export default function Footer() {
                   style={{ color: LIGRA_GREEN }}
                 />
 
-                <span>
+                <span className="max-w-[42ch]">
                   Amazana Building #02-01 50, MacPherson Road, 348471,
                   Singapore
                 </span>
@@ -339,11 +305,7 @@ export default function Footer() {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.2,
-                  ease: "easeOut",
-                }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
               >
                 <Phone
                   size={16}
@@ -359,11 +321,7 @@ export default function Footer() {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.2 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.3,
-                  ease: "easeOut",
-                }}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
               >
                 <Mail
                   size={16}
@@ -371,7 +329,7 @@ export default function Footer() {
                   style={{ color: LIGRA_GREEN }}
                 />
 
-                <span>xxxx@mgro.com</span>
+                <span className="break-all">xxxx@mgro.com</span>
               </motion.li>
             </ul>
 
@@ -382,11 +340,7 @@ export default function Footer() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.35,
-                ease: "easeOut",
-              }}
+              transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
             >
               Find Us
             </motion.h4>
@@ -424,11 +378,7 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.2 }}
-          transition={{
-            duration: 0.7,
-            delay: 0.2,
-            ease: "easeOut",
-          }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
           © {new Date().getFullYear()}{" "}
           {activeProduct ? activeProduct.name : "LiGrA"}. All rights reserved.
