@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import LigraChart from "./LigraChart";
+import ViewFullReportButton from "./ViewFullReportButton";
 
 const DARK_GREEN = "#259539";
 const GREEN = "#88B532";
@@ -361,6 +362,11 @@ export default function ProvenPerformancePage() {
                   </span>
                 </p>
               </div>
+            </motion.div>
+
+            {/* VIEW FULL REPORT — button + modal, placed right below the notes */}
+            <motion.div variants={fadeUp} className="mt-6 flex justify-center sm:justify-start">
+              <ViewFullReportButton />
             </motion.div>
           </motion.div>
         </div>
